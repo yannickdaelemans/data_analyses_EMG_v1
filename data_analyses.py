@@ -7,7 +7,7 @@ from bokeh.plotting import figure, show
 # start of code
 
 # opening the file
-f = open("01/1_raw_data_13-12_22.03.16.txt", "r")
+f = open("01/2_raw_data_13-13_22.03.16.txt", "r")
 
 # reading file
 content = f.readlines()
