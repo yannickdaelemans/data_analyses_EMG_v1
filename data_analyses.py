@@ -1,7 +1,7 @@
 # imports
 import matplotlib.pyplot as plt
-import PyQtX
-#import pyqtgraph as pg
+from bokeh.layouts import column
+from bokeh.plotting import figure, show
 
 
 # start of code
@@ -107,8 +107,91 @@ def getLabelStatistics():
         print "there are: ", float(percentage), "% of label", x
     print " "
 
-#def plotEMG(emg_data):
-    #pg.plot(emg_data)
+def plotEMG(emg_data):
+    fig = figure(title='EMG-data',
+             plot_height=800, plot_width=1200,
+             x_axis_label='EMG Data', y_axis_label='Time',
+             x_minor_ticks= 'auto', x_range=(0, 60000), y_range=(-1, 1.1),
+             toolbar_location=None)
+
+    fig.line(x=time, y=emg_data,
+         color='gray', line_width=1,
+         legend='EMG data normalised')
+
+    show(fig)
+
+def plotAllEMG():
+    s1 = figure(title='EMG-data sensor 1',
+                 plot_height=800, plot_width=1200,
+                 x_axis_label='EMG Data', y_axis_label='Time',
+                 x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                 toolbar_location=None)
+    s2 = figure(title='EMG-data sensor 2',
+                plot_height=800, plot_width=1200,
+                x_axis_label='EMG Data', y_axis_label='Time',
+                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                toolbar_location=None)
+    s3 = figure(title='EMG-data sensor 3',
+                plot_height=800, plot_width=1200,
+                x_axis_label='EMG Data', y_axis_label='Time',
+                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                toolbar_location=None)
+    s4 = figure(title='EMG-data sensor 4',
+                plot_height=800, plot_width=1200,
+                x_axis_label='EMG Data', y_axis_label='Time',
+                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                toolbar_location=None)
+    s5 = figure(title='EMG-data sensor 5',
+                plot_height=800, plot_width=1200,
+                x_axis_label='EMG Data', y_axis_label='Time',
+                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                toolbar_location=None)
+    s6 = figure(title='EMG-data sensor 6',
+                plot_height=800, plot_width=1200,
+                x_axis_label='EMG Data', y_axis_label='Time',
+                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                toolbar_location=None)
+    s7 = figure(title='EMG-data sensor 7',
+                plot_height=800, plot_width=1200,
+                x_axis_label='EMG Data', y_axis_label='Time',
+                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                toolbar_location=None)
+    s8 = figure(title='EMG-data sensor 8',
+                plot_height=800, plot_width=1200,
+                x_axis_label='EMG Data', y_axis_label='Time',
+                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                toolbar_location=None)
+
+    s1.line(x=time, y=emg1_data,
+             color='gray', line_width=1,
+             legend='Cumulative')
+    s2.line(x=time, y=emg1_data,
+            color='gray', line_width=1,
+            legend='Cumulative')
+    s3.line(x=time, y=emg1_data,
+            color='gray', line_width=1,
+            legend='Cumulative')
+    s4.line(x=time, y=emg1_data,
+            color='gray', line_width=1,
+            legend='Cumulative')
+    s5.line(x=time, y=emg1_data,
+            color='gray', line_width=1,
+            legend='Cumulative')
+    s6.line(x=time, y=emg1_data,
+            color='gray', line_width=1,
+            legend='Cumulative')
+    s7.line(x=time, y=emg1_data,
+            color='gray', line_width=1,
+            legend='Cumulative')
+    s8.line(x=time, y=emg1_data,
+            color='gray', line_width=1,
+            legend='Cumulative')
+
+    show(column(s1, s2, s3, s4, s5, s6, s7, s8))
+
+
+
+
 
 readInFile()
 printMaximumInformation()
@@ -117,7 +200,8 @@ getLabelStatistics()
 normaliseEverything()
 getAverage(0)
 getAverage(2)
-#plotEMG(emg1_data)
+plotEMG(emg1_data)
+plotAllEMG()
 
 print "finished"
 
