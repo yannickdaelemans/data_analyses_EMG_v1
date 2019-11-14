@@ -34,7 +34,7 @@ def readInFile():
     for x in content:
         data = x.split("\t")
         if i != 0:
-            time.append(data[0])
+            time.append(float(float(data[0])/1000))
             emg1_data.append(float(data[1]))
             emg2_data.append(float(data[2]))
             emg3_data.append(float(data[3]))
@@ -124,68 +124,68 @@ def plotAllEMG():
     s1 = figure(title='EMG-data sensor 1',
                  plot_height=800, plot_width=1200,
                  x_axis_label='EMG Data', y_axis_label='Time',
-                 x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                 x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                  toolbar_location=None)
     s2 = figure(title='EMG-data sensor 2',
                 plot_height=800, plot_width=1200,
                 x_axis_label='EMG Data', y_axis_label='Time',
-                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                 toolbar_location=None)
     s3 = figure(title='EMG-data sensor 3',
                 plot_height=800, plot_width=1200,
                 x_axis_label='EMG Data', y_axis_label='Time',
-                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                 toolbar_location=None)
     s4 = figure(title='EMG-data sensor 4',
                 plot_height=800, plot_width=1200,
                 x_axis_label='EMG Data', y_axis_label='Time',
-                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                 toolbar_location=None)
     s5 = figure(title='EMG-data sensor 5',
                 plot_height=800, plot_width=1200,
                 x_axis_label='EMG Data', y_axis_label='Time',
-                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                 toolbar_location=None)
     s6 = figure(title='EMG-data sensor 6',
                 plot_height=800, plot_width=1200,
                 x_axis_label='EMG Data', y_axis_label='Time',
-                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                 toolbar_location=None)
     s7 = figure(title='EMG-data sensor 7',
                 plot_height=800, plot_width=1200,
                 x_axis_label='EMG Data', y_axis_label='Time',
-                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                 toolbar_location=None)
     s8 = figure(title='EMG-data sensor 8',
                 plot_height=800, plot_width=1200,
                 x_axis_label='EMG Data', y_axis_label='Time',
-                x_minor_ticks='auto', x_range=(0, 60000), y_range=(-1, 1.1),
+                x_minor_ticks='auto', x_range=(0, 70), y_range=(-1, 1.1),
                 toolbar_location=None)
 
     s1.line(x=time, y=emg1_data,
              color='gray', line_width=1,
-             legend='Cumulative')
+             legend_label='Cumulative')
     s2.line(x=time, y=emg1_data,
             color='gray', line_width=1,
-            legend='Cumulative')
+            legend_label='Cumulative')
     s3.line(x=time, y=emg1_data,
             color='gray', line_width=1,
-            legend='Cumulative')
+            legend_label='Cumulative')
     s4.line(x=time, y=emg1_data,
             color='gray', line_width=1,
-            legend='Cumulative')
+            legend_label='Cumulative')
     s5.line(x=time, y=emg1_data,
             color='gray', line_width=1,
-            legend='Cumulative')
+            legend_label='Cumulative')
     s6.line(x=time, y=emg1_data,
             color='gray', line_width=1,
-            legend='Cumulative')
+            legend_label='Cumulative')
     s7.line(x=time, y=emg1_data,
             color='gray', line_width=1,
-            legend='Cumulative')
+            legend_label='Cumulative')
     s8.line(x=time, y=emg1_data,
             color='gray', line_width=1,
-            legend='Cumulative')
+            legend_label='Cumulative')
 
     show(column(s1, s2, s3, s4, s5, s6, s7, s8))
 
@@ -200,7 +200,7 @@ getLabelStatistics()
 normaliseEverything()
 getAverage(0)
 getAverage(2)
-plotEMG(emg1_data)
+#plotEMG(emg1_data)
 plotAllEMG()
 
 print "finished"
