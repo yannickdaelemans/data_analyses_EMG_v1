@@ -73,6 +73,7 @@ def getAverage(int_label):
             print average
             averages.append(average)
     print " "
+    print averages
 
 def normalise(emg_data):
     x = 0
@@ -189,6 +190,32 @@ def plotAllEMG():
 
     show(column(s1, s2, s3, s4, s5, s6, s7, s8))
 
+def removeAllZero():
+    print "Started removinging zeroes"
+    print " "
+    index = 0
+    for i in range(len(label)-1):
+        if list_of_list[9][index] == 0:
+            if removeZero(index):
+                i = i + 1
+            else:
+                index = index + 1
+        else:
+            index = index + 1
+    print index
+
+def removeZero(index):
+    for x in range(len(list_of_list)-1):
+        if x != 0 and x != len(list_of_list)-1:
+            if list_of_list[x][index] > abs(averages[x-1])*10 or list_of_list[x][index] < abs(averages[x-1])*(-10):
+                removeRow(index)
+                return True
+    return False
+
+def removeRow(index):
+    for listing in list_of_list:
+        listing.pop(index)
+
 
 
 
@@ -199,8 +226,11 @@ getLabelAmounts()
 getLabelStatistics()
 normaliseEverything()
 getAverage(0)
-getAverage(2)
+#getAverage(2)
 #plotEMG(emg1_data)
+removeAllZero()
+getLabelAmounts()
+getLabelStatistics()
 plotAllEMG()
 
 print "finished"
