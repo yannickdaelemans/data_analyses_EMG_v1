@@ -6,8 +6,17 @@ from bokeh.plotting import figure, show
 
 # start of code
 
-# opening the file
+# opening the files
 f = open("01/2_raw_data_13-13_22.03.16.txt", "r")
+f_all = open("allData.txt", "w")
+f_0 = open("0_Data.txt", "w")
+f_1 = open("1_Data.txt", "w")
+f_2 = open("2_Data.txt", "w")
+f_3 = open("3_Data.txt", "w")
+f_4 = open("4_Data.txt", "w")
+f_5 = open("5_Data.txt", "w")
+f_6 = open("6_Data.txt", "w")
+f_7 = open("7_Data.txt", "w")
 
 # reading file
 content = f.readlines()
@@ -27,37 +36,16 @@ label = []
 list_of_list = [time, emg1_data, emg2_data, emg3_data, emg4_data, emg5_data, emg6_data, emg7_data, emg8_data, label]
 # list of the averages
 averages = []
+#list of files to write into
+files_list = [f_0, f_1, f_2, f_3, f_4, f_5, f_6, f_7, f_all]
 
 
-def readInFile():
-    i = 0
-    for x in content:
-        data = x.split("\t")
-        if i != 0:
-            time.append(float(float(data[0])/1000))
-            emg1_data.append(float(data[1]))
-            emg2_data.append(float(data[2]))
-            emg3_data.append(float(data[3]))
-            emg4_data.append(float(data[4]))
-            emg5_data.append(float(data[5]))
-            emg6_data.append(float(data[6]))
-            emg7_data.append(float(data[7]))
-            emg8_data.append(float(data[8]))
-            label.append(int(data[9]))
-        i = i+1
-
-def printMaximumInformation():
-    print "In this file there are: " , int(len(label)) , " datapoints"
-    print "for EMG 1 we have a max off: " , max(emg1_data), " and a min of: ", min(emg1_data)
-    print "for EMG 2 we have a max off: " , max(emg2_data), " and a min of: ", min(emg2_data)
-    print "for EMG 3 we have a max off: " , max(emg3_data), " and a min of: ", min(emg3_data)
-    print "for EMG 4 we have a max off: " , max(emg4_data), " and a min of: ", min(emg4_data)
-    print "for EMG 5 we have a max off: " , max(emg5_data), " and a min of: ", min(emg5_data)
-    print "for EMG 6 we have a max off: " , max(emg6_data), " and a min of: ", min(emg6_data)
-    print "for EMG 7 we have a max off: " , max(emg7_data), " and a min of: ", min(emg7_data)
-    print "for EMG 8 we have a max off: " , max(emg8_data), " and a min of: ", min(emg8_data)
-    print " "
-
+#################################################################
+# The code below will adjust data in the files, to make them    #
+# better suitable for the use in the machine learning algo.     #
+# Mainly we normalise the data (so to get it all between -1 and #
+# 1)                                                            #
+#################################################################
 def getAverage(int_label):
     average = 0
     count = 0
@@ -92,6 +80,25 @@ def normaliseEverything():
             normalise(list_of_list[x])
         x = x+1
 
+
+#################################################################
+# From here on out, the code will be for showing statistics in  #
+# the Terminal.                                                 #
+# This is being done to make some statistics regarding the data #
+# more visible.                                                 #
+#################################################################
+def printMaximumInformation():
+    print "In this file there are: " , int(len(label)) , " datapoints"
+    print "for EMG 1 we have a max off: " , max(emg1_data), " and a min of: ", min(emg1_data)
+    print "for EMG 2 we have a max off: " , max(emg2_data), " and a min of: ", min(emg2_data)
+    print "for EMG 3 we have a max off: " , max(emg3_data), " and a min of: ", min(emg3_data)
+    print "for EMG 4 we have a max off: " , max(emg4_data), " and a min of: ", min(emg4_data)
+    print "for EMG 5 we have a max off: " , max(emg5_data), " and a min of: ", min(emg5_data)
+    print "for EMG 6 we have a max off: " , max(emg6_data), " and a min of: ", min(emg6_data)
+    print "for EMG 7 we have a max off: " , max(emg7_data), " and a min of: ", min(emg7_data)
+    print "for EMG 8 we have a max off: " , max(emg8_data), " and a min of: ", min(emg8_data)
+    print " "
+
 def getLabelAmounts():
     x = 0
     print "total amount of labels: ", len(label)
@@ -108,6 +115,12 @@ def getLabelStatistics():
         print "there are: ", float(percentage), "% of label", x
     print " "
 
+
+#################################################################
+# From here on out, the code is for making the plots.           #
+# This is being done to make the data more visible, and         #
+# less abstract                                                 #
+#################################################################
 def plotEMG(emg_data):
     fig = figure(title='EMG-data',
              plot_height=800, plot_width=1200,
@@ -190,6 +203,13 @@ def plotAllEMG():
 
     show(column(s1, s2, s3, s4, s5, s6, s7, s8))
 
+
+#################################################################
+# From here on out, the code starts to remove unwanted          #
+# zeroes, we do this because otherwise there would be too       #
+# many zeroes, which would throw the machine learning           #
+# algorithm off balance                                         #
+#################################################################
 def removeAllZero():
     print "Started removinging zeroes"
     print " "
@@ -217,9 +237,70 @@ def removeRow(index):
         listing.pop(index)
 
 
+#################################################################
+# Code from here on is for File Handling                        #
+# The first method will read in all the files,                  #
+# From the second method on, data is being put back into the    #
+# Files.                                                        #
+# There are 9 new files being made;                             #
+# 0_Data    => all the data for label 0                         #
+# 1_Data    => all the data for label 1                         #
+# 2_Data    => all the data for label 2                         #
+# 3_Data    => all the data for label 3                         #
+# 4_Data    => all the data for label 4                         #
+# 5_Data    => all the data for label 5                         #
+# 6_Data    => all the data for label 6                         #
+# 7_Data    => all the data for label 7                         #
+# allData   => all the data                                     #
+#################################################################
+def readInFile():
+    i = 0
+    for x in content:
+        data = x.split("\t")
+        if i != 0:
+            time.append(float(float(data[0])/1000))
+            emg1_data.append(float(data[1]))
+            emg2_data.append(float(data[2]))
+            emg3_data.append(float(data[3]))
+            emg4_data.append(float(data[4]))
+            emg5_data.append(float(data[5]))
+            emg6_data.append(float(data[6]))
+            emg7_data.append(float(data[7]))
+            emg8_data.append(float(data[8]))
+            label.append(int(data[9]))
+        i = i+1
+
+def makeAllTheDifferentFiles():
+    for x in range(8):
+        putInFileMethod(files_list[x], x)
+        files_list[x].close()
+    putAllInFile()
+
+def putInFileMethod(file_name, labeling):
+    for x in range(len(label)-1):
+        if label[x] == labeling:
+            putLineInFile(file_name, x)
+
+def putLineInFile(file_name, x):
+    file_name.write("%f\t" % emg1_data[x])
+    file_name.write("%f\t" % emg2_data[x])
+    file_name.write("%f\t" % emg3_data[x])
+    file_name.write("%f\t" % emg4_data[x])
+    file_name.write("%f\t" % emg5_data[x])
+    file_name.write("%f\t" % emg6_data[x])
+    file_name.write("%f\t" % emg7_data[x])
+    file_name.write("%f\t" % emg8_data[x])
+    file_name.write("%s\n" % label[x])
+
+def putAllInFile():
+    for x in range(len(emg1_data)-1):
+        putLineInFile(f_all, x)
+    f_all.close()
 
 
 
+
+# From here on out, we call all the methods for what we want to be doing.
 readInFile()
 printMaximumInformation()
 getLabelAmounts()
@@ -227,11 +308,12 @@ getLabelStatistics()
 normaliseEverything()
 getAverage(0)
 #getAverage(2)
-#plotEMG(emg1_data)
+#plotAllEMG()
 removeAllZero()
 getLabelAmounts()
 getLabelStatistics()
-plotAllEMG()
+#plotAllEMG()
+makeAllTheDifferentFiles()
 
 print "finished"
 
