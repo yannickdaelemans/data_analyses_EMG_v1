@@ -1,5 +1,4 @@
 # imports
-import matplotlib.pyplot as plt
 from bokeh.layouts import column
 from bokeh.plotting import figure, show
 
@@ -18,9 +17,7 @@ f_5 = open("5_Data.txt", "w")
 f_6 = open("6_Data.txt", "w")
 f_7 = open("7_Data.txt", "w")
 
-# reading file
-content = f.readlines()
-
+# all the glogal lists:
 # making all the necessary lists (10)
 time = []
 emg1_data = []
@@ -254,6 +251,8 @@ def removeRow(index):
 # allData   => all the data                                     #
 #################################################################
 def readInFile():
+    # reading file
+    content = f.readlines()
     i = 0
     for x in content:
         data = x.split("\t")
@@ -315,6 +314,6 @@ getLabelStatistics()
 #plotAllEMG()
 makeAllTheDifferentFiles()
 
-print "finished"
+print "finished the code"
 
 
