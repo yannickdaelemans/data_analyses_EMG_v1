@@ -1,3 +1,11 @@
+This Python is meant to do some initial data-analysis for a Machine Learning project. The data was taken from: https://archive.ics.uci.edu/ml/datasets/EMG+data+for+gestures. 
+
+In this Python file, I get the data from the file, normalize it, delete data from the 0-class (because there is too many of that), and put it back in the file. 
+There will also be some statistics shown in the terminal.
+
+Underneath you can read the READ-ME from the scientists who put together the datasets.
+
+
 EMG Pattern Database
 
 For recording patterns, we used a MYO Thalmic bracelet worn on a user’s forearm, and a PC with a Bluetooth receiver. The bracelet is equipped with eight sensors equally spaced around the forearm that simultaneously acquire myographic signals. The signals are sent through a Bluetooth interface to a PC. 
